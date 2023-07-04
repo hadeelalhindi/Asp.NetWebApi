@@ -7,38 +7,50 @@ using System.Web.Http;
 
 namespace WebApplication.Controllers
 {
+    public class Employee
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string PhoneNumber { get; set; }
+    }
     public class ValuesController : ApiController
     {
-        static List<string> strings = new List<string>() { 
-        
-        "hadeel","mohammed","alhindi"
+        static List<Employee> employees = new List<Employee>()
+        {
+            new Employee { Id = 1, Name = "Hadeel", PhoneNumber = "1234567890" },
+            new Employee { Id = 2, Name = "Mohammed", PhoneNumber = "0987654321" },
+            new Employee { Id = 3, Name = "Alhindi", PhoneNumber = "5554443333" }
         };
-        // GET api/values
-        public IEnumerable<string> Get()
+        // GET api/employees
+        public IEnumerable<Employee> Get()
         {
-            return strings;
+            return employees;
         }
 
-        // GET api/values/5
-        public string Get(int id)
+        // GET api/employees/5
+        public Employee Get(int id)
         {
-            return strings[id];
+            return employees.FirstOrDefault(e => e.Id == id);
         }
 
-        // POST api/values
-        public void Post([FromBody] string value)
+        // POST api/employees
+        public void Post([FromBody] Employee employee)
         {
-            strings.Add(value);
+            employees.Add(employee);
         }
 
-        // PUT api/values/5
-        public void Put(int id, [FromBody] string value)
+        // PUT api/employees/5
+        public void Put(int id, [FromBody] Employee employee)
         {
-            strings[id] = value;        }
+            var index = employees.FindIndex(e => e.Id == id);
+            employees[index] = employee;
+        }
 
-        // DELETE api/values/5
+        // DELETE api/employees/5
         public void Delete(int id)
         {
-            strings.RemoveAt(id);        }
+            var employee = employees.FirstOrDefault(e => e.Id == id);
+            employees.Remove(employee);
+        }
     }
 }
