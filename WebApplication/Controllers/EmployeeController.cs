@@ -13,7 +13,7 @@ namespace WebApplication.Controllers
         public string Name { get; set; }
         public string PhoneNumber { get; set; }
     }
-    public class ValuesController : ApiController
+    public class EmployeeController : ApiController
     {
         static List<Employee> employees = new List<Employee>()
         {
